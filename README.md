@@ -1,12 +1,13 @@
 # Eureka Partners: retailer site (concept)
 
 - **Live version:** https://eureka-partners-concept.netlify.app
-- **This zip:** exactly the files that are live.
+- **This repo:** the latest version. The live site only changes when it is redeployed (see **Deploy**).
 
 ## What it is
 - One-page scroll story for retailers: "Optimising your shelf space, so every centimetre earns you more rands."
 - Everything is 3D and generated in code with three.js. There are no image or 3D model files.
 - Black room, orange Eureka shelf, live data overlays in every scene.
+- A light / dark toggle at the top right of both pages (see **Light mode** below).
 
 ## Files
 - `index.html`: the overview scroll story (HTML, CSS and JavaScript in one file).
@@ -47,7 +48,19 @@
 
 ## Dependencies (all from CDNs)
 - **three.js:** 0.160.0 via cdn.jsdelivr.net, plus these add-ons: RoomEnvironment, EffectComposer, UnrealBloomPass, OutputPass, Reflector and CSS2DRenderer.
-- **Google Fonts:** Space Grotesk, Inter, JetBrains Mono and Lilita One.
+- **Google Fonts:** Space Grotesk, Inter, JetBrains Mono and Lilita One, plus Source Serif 4 for light-mode headings.
+
+## Light mode
+- **Toggle:** the sun / moon button at the top right of the header on both pages. Dark is the default.
+- **Remembered:** the choice is saved in the browser (`localStorage`, key `eureka-theme`), so it carries between the two pages and across visits.
+- **Shareable:** add `?theme=light` or `?theme=dark` to a link to open the site in that mode, e.g. `shelf-optimizer.html?theme=light#opportunity`.
+- **Look:** styled like a financial presentation: white page, near-black text, hairline borders instead of glows, serif headings (Source Serif 4), Inter with tabular figures for every number, and statement-style tables with a rule under the headers and a double rule under totals.
+- **3D:** the black showroom becomes a bright white studio. Lights, floor, reflections and bloom ease across in about half a second, and the orange data overlays switch from additive glow (which vanishes on white) to solid colour.
+- **Where it lives:**
+  - CSS: the block headed `light theme` at the end of each page's `<style>`. Every rule is scoped to `html[data-theme=light]`, so dark mode is untouched.
+  - 3D: the `THEME` object (dark and light values for lights, floor, background, bloom) and `applyTheme()` in each page's script.
+  - Charts (Shelf Optimizer): `PAL()` holds the chart colours for each theme.
+  - Light-mode orange text is `#bf5009` (a darker brand orange) for legible contrast on white. Brand `#f16e1f` is kept for buttons, bars, pins and fills.
 
 ## Deploy
 - **Hosting:** static files, no build step. Any static host works.
